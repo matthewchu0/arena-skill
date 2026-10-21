@@ -31,6 +31,7 @@ import math
 import os
 import random
 import re
+import shlex
 import sys
 import time
 
@@ -825,7 +826,9 @@ def save_state(state):
 
 
 def _cmd(*parts):
-    return 'python3 "%s" %s' % (SELF, " ".join(parts))
+    if os.name == "nt":
+        return '& "%s" "%s" %s' % (sys.executable, SELF, " ".join(parts))
+    return '%s %s %s' % (shlex.quote(sys.executable), shlex.quote(SELF), " ".join(parts))
 
 
 def _card_line(card):

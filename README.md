@@ -1,3 +1,9 @@
+# Codex fork
+
+This fork installs the tournament as `$arena-tournament` in Codex. It uses fresh Codex subagents, preserves the configured model and adapts concurrency to the host's actual free slots. Python bookkeeping works with the current interpreter on Windows PowerShell and POSIX shells. Install the complete `skills/arena/` folder under your personal skills directory; its unique manifest name avoids the other Arena skills.
+
+Examples in Codex: `$arena-tournament --quick <task>`, `$arena-tournament --agents 32 <task>`, or `$arena-tournament <task>` for the original 100 competitors. Installation and planning do not start model calls. The original README below describes the upstream Claude implementation; use the fork's SKILL.md for Codex runtime instructions.
+
 # The Arena skill
 
 When Claude keeps giving you bad answers, make 100 versions of it fight to the death. One Claude

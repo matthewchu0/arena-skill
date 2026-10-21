@@ -10,6 +10,7 @@ import json
 import os
 import random
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -202,6 +203,13 @@ class Dealer(unittest.TestCase):
 
 
 class Plan(unittest.TestCase):
+    def test_printed_command_runs_with_the_current_interpreter(self):
+        command = B._cmd("plan", "--agents", "2", "--json")
+        args = ["powershell", "-NoProfile", "-Command", command] if os.name == "nt" else shlex.split(command)
+        result = subprocess.run(args, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["calls"], 7)
+
     def test_numbers(self):
         self.assertEqual(B.bracket_sizes(100), [100, 50, 25, 13, 7, 4, 2, 1])
         t = B.plan_totals(100)
